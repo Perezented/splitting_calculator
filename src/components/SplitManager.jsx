@@ -192,60 +192,60 @@ export const SplitManager = ({ splits, onSplitsUpdate, show, onHide }) => {
             const validation = validateSplit(split.value);
             return (
               <div key={index} className="mb-3 p-3 border rounded">
-              <div className="d-flex justify-content-between align-items-start mb-2">
-                <Form.Group className="flex-grow-1 me-2">
-                <Form.Label>Split Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={editingSplits[index].name}
-                  disabled
-                  onChange={(e) => {
-                  handleSplitNameChange(index, e.target.value);
-                  setTimeout(() => onSplitsUpdate(editingSplits), 0);
-                  }}
-                  placeholder="Enter split name"
-                  autoFocus
-                />
-                </Form.Group>
-                <Button
-                variant="outline-danger"
-                size="sm"
-                onClick={() => {
-                  handleDeleteSplit(index);
-                  setTimeout(() => onSplitsUpdate(editingSplits.filter((_, i) => i !== index)), 0);
-                }}
-                className="mt-4"
-                title="Delete this split"
-                >
-                <FontAwesomeIcon icon={faTrash} />
-                </Button>
-              </div>
-              <Form.Group>
-                <Form.Label>Percentages</Form.Label>
-                <Form.Control
-                type="text"
-                value={editingSplits[index].value.join(', ')}
-                disabled
-                onChange={(e) => {
-                  handleSplitValueChange(index, e.target.value);
-                  setTimeout(() => onSplitsUpdate(editingSplits), 0);
-                }}
-                placeholder="e.g., 50, 30, 20 or 50 30 20 or 50-30-20"
-                />
-                <div className="d-flex justify-content-between align-items-center mt-1">
-                <Form.Text className="text-muted">
-                  Current sum: <strong>{validation.sum}%</strong>
-                  {validation.remaining !== 0 && (
-                  <span className={validation.remaining > 0 ? 'text-warning' : 'text-danger'}>
-                    {' '} | Remaining: <strong>{validation.remaining}%</strong>
-                  </span>
-                  )}
-                </Form.Text>
-                <Badge bg={validation.isValid ? 'success' : 'danger'}>
-                  {validation.isValid ? '✓ Valid' : '✗ Invalid'}
-                </Badge>
+                <div className="d-flex justify-content-between align-items-start mb-2">
+                  <Form.Group className="flex-grow-1 me-2">
+                    <Form.Label>Split Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={editingSplits[index].name}
+                      disabled
+                      onChange={(e) => {
+                        handleSplitNameChange(index, e.target.value);
+                        setTimeout(() => onSplitsUpdate(editingSplits), 0);
+                      }}
+                      placeholder="Enter split name"
+                      autoFocus
+                    />
+                  </Form.Group>
+                  <Button
+                    variant="outline-danger"
+                    size="sm"
+                    onClick={() => {
+                      handleDeleteSplit(index);
+                      setTimeout(() => onSplitsUpdate(editingSplits.filter((_, i) => i !== index)), 0);
+                    }}
+                    className="mt-4"
+                    title="Delete this split"
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </Button>
                 </div>
-              </Form.Group>
+                <Form.Group>
+                  <Form.Label>Percentages</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={editingSplits[index].value.join(', ')}
+                    disabled
+                    onChange={(e) => {
+                      handleSplitValueChange(index, e.target.value);
+                      setTimeout(() => onSplitsUpdate(editingSplits), 0);
+                    }}
+                    placeholder="e.g., 50, 30, 20 or 50 30 20 or 50-30-20"
+                  />
+                  <div className="d-flex justify-content-between align-items-center mt-1">
+                    <Form.Text className="text-muted">
+                      Current sum: <strong>{validation.sum}%</strong>
+                      {validation.remaining !== 0 && (
+                        <span className={validation.remaining > 0 ? 'text-warning' : 'text-danger'}>
+                          {' '} | Remaining: <strong>{validation.remaining}%</strong>
+                        </span>
+                      )}
+                    </Form.Text>
+                    <Badge bg={validation.isValid ? 'success' : 'danger'}>
+                      {validation.isValid ? '✓ Valid' : '✗ Invalid'}
+                    </Badge>
+                  </div>
+                </Form.Group>
               </div>
             );
           })
@@ -309,13 +309,20 @@ export const SplitManager = ({ splits, onSplitsUpdate, show, onHide }) => {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-between">
-        <Button variant="outline-danger" onClick={handleReset}>
-          Reset
-        </Button>
+        <div>
+          <Button variant="outline-danger" onClick={handleReset}>
+            Reset
+          </Button>
+        </div>
 
-        <Button variant="secondary" onClick={onHide}>
-          Cancel
-        </Button>
+        <div>
+          <Button variant="secondary" onClick={onHide} className="me-2">
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleSave}>
+            Save
+          </Button>
+        </div>
       </Modal.Footer>
     </Modal>
   );
